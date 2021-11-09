@@ -24,7 +24,7 @@ namespace GeneralStore.MVC.Controllers
             return View();
         }
 
-        //Get: Product
+        //Post: Product
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Product product)
@@ -36,6 +36,37 @@ namespace GeneralStore.MVC.Controllers
                 return RedirectToAction("Index");
             }
             return View(product);
+        }
+
+        //Get: Delete
+        //Product/Delete/{id}
+        public ActionResult Delete(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+
+            var product = _db.Products.Find(id);
+
+            if(product == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(product);
+        }
+
+        //Post: Delete
+        //Product/Delete/{id}
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+            var product = _db.Products.Find(id);
+            _db.Products.Remove(product);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
