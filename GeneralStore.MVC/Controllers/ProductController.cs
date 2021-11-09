@@ -17,5 +17,19 @@ namespace GeneralStore.MVC.Controllers
         {
             return View(_db.Products.ToList());
         }
+
+        //Get: Product
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Products.Add(product);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(product);
+        }
     }
 }
