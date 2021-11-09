@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,7 +19,7 @@ namespace GeneralStore.MVC.Controllers
             return View(_db.Customers.ToList());
         }
 
-        //Get: Product
+        //Get: Customer
         public ActionResult Create()
         {
             return View();
@@ -38,6 +39,36 @@ namespace GeneralStore.MVC.Controllers
             return View(customer);
         }
 
+        //Get: Delete
+        //Customer/Delete/{id}
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var customer = _db.Customers.Find(id);
+
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(customer);
+        }
+
+        //Post: Delete
+        //Customer/Delete/{id}
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+            var customer = _db.Customers.Find(id);
+            _db.Customers.Remove(customer);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
     }
 }
