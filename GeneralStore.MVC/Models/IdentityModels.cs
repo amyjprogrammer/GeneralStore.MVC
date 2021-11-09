@@ -25,11 +25,10 @@ namespace GeneralStore.MVC.Models
         {
         }
 
-        public DbSet<GeneralStore.MVC.Models.Product> Products { get; set; }
-
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+        public DbSet<GeneralStore.MVC.Models.Product> Products { get; set; }
     }
 }

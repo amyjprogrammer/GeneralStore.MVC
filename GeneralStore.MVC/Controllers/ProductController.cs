@@ -19,6 +19,12 @@ namespace GeneralStore.MVC.Controllers
         }
 
         //Get: Product
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        //Get: Product
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Product product)
