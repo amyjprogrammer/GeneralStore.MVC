@@ -17,6 +17,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CustomerId, "Customer Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @*//replace null with ViewBag.Customers as IEnumerable<SelectListItem></SelectListItem>*@
+                @*after viewbag- "Select a Customer"- adds default value*@
                 @Html.DropDownList("CustomerId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
             </div>
@@ -25,6 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProductId, "Product Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @*replace null with ViewBag.Products as IEnumberable<SelectListItem></SelectListItem>*@
                 @Html.DropDownList("ProductId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
             </div>

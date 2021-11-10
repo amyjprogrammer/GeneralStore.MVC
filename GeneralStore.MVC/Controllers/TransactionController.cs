@@ -15,6 +15,9 @@ namespace GeneralStore.MVC.Controllers
         // GET: Transaction
         public ActionResult Index()
         {
+            //use this instead
+            //var transactions = _db.Transactions.ToList().OrderBy(t => t.TransactionId);
+            //return View(transcations)
             List<Transaction> transactionList = _db.Transactions.ToList();
             List<Transaction> orderedList = transactionList.OrderBy(prod => prod.DateOfTransaction).ToList();
             return View(_db.Transactions.ToList());
@@ -24,9 +27,18 @@ namespace GeneralStore.MVC.Controllers
         //viewbag - https://techfunda.com/howto/136/views-of-model-having-primary-and-foreign-key-relationship
         public ActionResult Create()
         {
+            //View.Customers = _db.Customers.Select(cust => new SelectListItem {Value = cust.CustomerId.ToString(), Text = cust.FirstName}).ToList();
+            //ViewBag.Products = _dbProducts.Select(cust => new SelectListItem {Value = prod.ProductId.ToString(), Text = prod.Name }).ToList();
+
             ViewBag.CustomerId = new SelectList(_db.Customers, "CustomerId", "FullName");
             ViewBag.ProductId = new SelectList(_db.Products, "ProductId", "Name");
             return View();
+        }
+
+        private void PopulateDropDownLists()
+        {
+            ViewBag.Customers = _db.Customers.ToList().Select(cust => new SelectListItem { Value = cust.CustomerId.ToString(), Text = cust.FullName }).ToList();
+            ViewBag.Products = _db.Products.Select(prod => new SelectListItem { Value = prod.ProductId.ToString(), Text = prod.Name }).ToList();
         }
 
         //Post: Transaction/Create
