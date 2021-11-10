@@ -13,10 +13,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TransactionId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerId)
+            @Html.DisplayNameFor(model => model.Customer.FullName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Product.Name)
@@ -29,16 +26,18 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TransactionId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerId)
+                @Html.DisplayFor(modelItem => item.Customer.FullName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Product.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ItemCount)
+            </td>
+            <td>
+                @Html.ActionLink("Change", "Edit", new { id = item.TransactionId }) |
+                @Html.ActionLink("More Info", "Details", new { id = item.TransactionId }) |
+                @Html.ActionLink("Remove", "Delete", new { id = item.TransactionId })
             </td>
         </tr>
     }
